@@ -13,16 +13,6 @@
                     <key>url</key>
                     <string>https://github.com/Gadlimurad/muradshop/releases/download/Mail/Mail.ipa</string>
                 </dict>
-                <dict>
-                    <key>kind</key>
-                    <string>display-image</string>
-                    <string>https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Mail.Ru_Logo_2022.svg/100px-Mail.Ru_Logo_2022.svg.png</string>
-                </dict>
-                <dict>
-                    <key>kind</key>
-                    <string>full-size-image</string>
-                    <string>https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Mail.Ru_Logo_2022.svg/512px-Mail.Ru_Logo_2022.svg.png</string>
-                </dict>
             </array>
             <key>metadata</key>
             <dict>

@@ -17,9 +17,10 @@
             <key>metadata</key>
             <dict>
                 <key>bundle-identifier</key>
-                <string>ru.avito.avito</string> <!-- Официальный ID Avito -->
+                <!-- ТЕПЕРЬ ID ТОЧНО СОВПАДАЕТ С ВАШИМ ФАЙЛОМ -->
+                <string>ru.avito.app</string>
                 <key>bundle-version</key>
-                <string>1.0.0</string>
+                <string>200.5</string>
                 <key>kind</key>
                 <string>software</string>
                 <key>title</key>

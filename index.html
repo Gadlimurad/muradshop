@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Murad Shop</title>
+<!-- ЭТА СТРОКА ДОБАВЛЯЕТ ИКОНКУ НА РАБОЧИЙ СТОЛ iOS -->
+<link rel="apple-touch-icon" sizes="180x180" href="icon.png">
 <style>
     /* Премиальный яркий дизайн с глассморфизмом */
     * {
@@ -299,7 +301,7 @@
         <input type="text" id="appSearchInput" class="search-input" placeholder="Поиск по названию..." oninput="filterApps()" autocomplete="off">
 
         <div class="sheet-list">
-            <!-- ВКонтакте (Новая красивая иконка нарисована кодом) -->
+            <!-- ВКонтакте -->
             <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/vk.plist', 'ВКонтакте')">
                 <div class="app-icon" style="background: #0077FF;">
                     <svg viewBox="0 0 100 100" width="100%" height="100%">
@@ -333,7 +335,7 @@
                 <span class="app-name">Mail.ru</span>
             </div>
             
-            <!-- Avito (Иконка нарисована кодом) -->
+            <!-- Avito -->
             <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/avito.plist', 'Avito')">
                 <div class="app-icon" style="background: linear-gradient(135deg, #97CF20, #6CB412);">
                     <svg viewBox="0 0 100 100" width="100%" height="100%">

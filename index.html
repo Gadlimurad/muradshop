@@ -249,6 +249,9 @@
         margin-right: 15px;
         background: #444;
         box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .app-icon img {
@@ -296,24 +299,25 @@
         <input type="text" id="appSearchInput" class="search-input" placeholder="Поиск по названию..." oninput="filterApps()" autocomplete="off">
 
         <div class="sheet-list">
-            <!-- ВКонтакте -->
+            <!-- ВКонтакте (Новая красивая иконка нарисована кодом) -->
             <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/vk.plist', 'ВКонтакте')">
-                <div class="app-icon">
-                    <img src="https://i.pinimg.com/736x/92/a9/dc/92a9dc918ad00d529922958f603ede6d.jpg" alt="ВК">
+                <div class="app-icon" style="background: #0077FF;">
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <text x="50" y="55" font-family="Arial, sans-serif" font-size="55" font-weight="900" fill="white" text-anchor="middle" dominant-baseline="middle">VK</text>
+                    </svg>
                 </div>
                 <span class="app-name">ВКонтакте</span>
             </div>
 
-            <!-- ВК Музыка (Добавлено) -->
+            <!-- ВК Музыка -->
             <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/vk_music.plist', 'ВК Музыка')">
-                <div class="app-icon" style="background: #007aff; display: flex; justify-content: center; align-items: center;">
-                    <svg viewBox="0 0 24 24" width="60%" height="60%" fill="white">
-                        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-                    </svg>
+                <div class="app-icon">
+                    <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/34/f1/bc/34f1bc35-aaee-2b18-56d8-b338e797d775/AppIcon-0-0-1x_U007emarketing-0-6-0-P3-85-220.png/512x512bb.jpg" alt="ВК Музыка">
                 </div>
                 <span class="app-name">ВК Музыка</span>
             </div>
 
+            <!-- Амина -->
              <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/Amina.plist', 'Амина')">
                 <div class="app-icon">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhUIQDD_GjCILmGiuslLdZXepawwDNS77yqOXFWLNJGg&s" alt="Амина">
@@ -329,9 +333,9 @@
                 <span class="app-name">Mail.ru</span>
             </div>
             
-            <!-- Avito (Иконка нарисована кодом, не требует интернета) -->
+            <!-- Avito (Иконка нарисована кодом) -->
             <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/avito.plist', 'Avito')">
-                <div class="app-icon" style="background: linear-gradient(135deg, #97CF20, #6CB412); display: flex; justify-content: center; align-items: center;">
+                <div class="app-icon" style="background: linear-gradient(135deg, #97CF20, #6CB412);">
                     <svg viewBox="0 0 100 100" width="100%" height="100%">
                         <text x="50" y="55" font-family="Arial, sans-serif" font-size="65" font-weight="900" fill="white" text-anchor="middle" dominant-baseline="middle">A</text>
                     </svg>

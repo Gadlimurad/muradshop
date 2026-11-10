@@ -1,365 +1,115 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Murad Shop</title>
-<!-- ИКОНКА ДЛЯ РАБОЧЕГО СТОЛА iOS -->
-<link rel="apple-touch-icon" sizes="180x180" href="icon.png">
-<style>
-    :root {
-      --bg: #100d0b;
-      --panel: #1b1511;
-      --panel-2: #241b15;
-      --cream: #f2d7b5;
-      --muted: #bca58d;
-      --red: #d92325;
-      --red-dark: #8f1719;
-      --line: rgba(242, 215, 181, .18);
-      --shadow: 0 24px 70px rgba(0,0,0,.48);
-    }
-    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    body {
-      margin: 0; min-height: 100vh; padding: 32px 18px 48px; color: var(--cream);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      background:
-        radial-gradient(ellipse at 50% -10%, rgba(217,35,37,.20), transparent 45%),
-        radial-gradient(ellipse at 100% 100%, rgba(122,62,35,.16), transparent 40%),
-        repeating-linear-gradient(135deg, transparent 0 34px, rgba(242,215,181,.018) 35px 36px),
-        var(--bg);
-    }
-    .header-block { text-align: center; margin-bottom: 24px; position: relative; }
-    .brand-mark {
-      width: 58px; height: 58px; margin: 0 auto 12px; display: grid; place-items: center;
-      color: var(--red); font-size: 43px; line-height: 1; font-weight: 1000; font-style: italic;
-      text-shadow: 2px 3px 0 #4d1111, 0 0 24px rgba(217,35,37,.25);
-      transform: skew(-9deg);
-    }
-    h2 {
-      margin: 0 0 7px; color: var(--cream); font-size: clamp(29px, 7vw, 38px);
-      line-height: 1; font-weight: 900; letter-spacing: .04em; text-transform: uppercase;
-    }
-    h2 span { color: var(--red); }
-    p.subtitle { margin: 0; color: var(--muted); font-size: 12px; letter-spacing: .19em; text-transform: uppercase; }
-    
-    .container {
-      width: 100%; max-width: 440px; padding: 25px 21px 22px;
-      background: linear-gradient(145deg, rgba(45,32,24,.96), rgba(20,16,14,.98));
-      border: 1px solid var(--line); border-radius: 23px; box-shadow: var(--shadow);
-      position: relative; overflow: hidden;
-    }
-    .container:before {
-      content: ""; position: absolute; width: 170px; height: 3px; top: 0; left: 22px;
-      background: linear-gradient(90deg, var(--red), transparent); transform: skewX(-35deg);
-    }
-    .eyebrow { color: var(--red); font-size: 10px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; margin: 0 0 15px 3px; }
-    
-    .btn {
-      width: 100%; min-height: 56px; padding: 15px 17px; border-radius: 13px;
-      border: 1px solid var(--line); background: rgba(242,215,181,.055); color: var(--cream);
-      font-size: 15px; font-weight: 650; cursor: pointer; display: flex;
-      justify-content: space-between; align-items: center; gap: 12px;
-      transition: .22s ease; margin-bottom: 12px;
-    }
-    .btn:hover { border-color: rgba(217,35,37,.7); background: rgba(217,35,37,.09); transform: translateY(-1px); }
-    
-    .btn-install {
-      justify-content: center; gap: 10px; border: 0;
-      color: #fff4e8; font-size: 16px; font-weight: 800;
-      background: linear-gradient(115deg, #a9181c, #e12b2d 58%, #a9181c);
-      box-shadow: 0 8px 22px rgba(177,25,29,.25); margin-bottom: 0;
-    }
-    .btn-install:hover { background: linear-gradient(115deg, #c31e23, #f03b3d 58%, #c31e23); box-shadow: 0 10px 28px rgba(217,35,37,.32); }
-
-    /* Кнопка оплаты */
-    .btn-pay {
-        justify-content: center; gap: 10px; margin-top: 12px; font-weight: 800;
-        background: #2d221b; border: 1px solid rgba(242,215,181,.3);
-    }
-    .btn-pay:hover { border-color: var(--cream); background: #3a2b21; }
-
-    /* Кнопка поделиться */
-    .btn-share {
-        justify-content: center; gap: 10px; margin-top: 12px; margin-bottom: 0;
-        border: 1px dashed rgba(242,215,181,.3); background: transparent;
-        color: var(--muted); font-size: 14px;
-    }
-    .btn-share:hover { color: var(--cream); border-color: var(--cream); background: rgba(242,215,181,.05); }
-
-    .status-message {
-      margin-top: 0; text-align: center; font-size: 13px; font-weight: 600; color: var(--cream);
-      opacity: 0; height: 0; overflow: hidden; transition: .3s ease;
-    }
-    .status-message.show { opacity: 1; height: auto; margin-top: 17px; }
-    
-    .sheet-overlay {
-      position: fixed; inset: 0; padding: 16px; background: rgba(5,4,4,.78);
-      backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px);
-      display: none; justify-content: center; align-items: flex-end; z-index: 100;
-    }
-    .sheet-overlay.active { display: flex; }
-    .sheet-modal {
-      width: 100%; max-width: 440px; height: min(78vh, 690px);
-      background: linear-gradient(180deg, #261c16, #120f0d);
-      border: 1px solid var(--line); border-bottom: 0; border-radius: 25px 25px 0 0;
-      padding: 23px 20px max(22px, env(safe-area-inset-bottom));
-      display: flex; flex-direction: column; box-shadow: 0 -18px 60px rgba(0,0,0,.55);
-      animation: slideUp .32s cubic-bezier(.16,1,.3,1);
-    }
-    @keyframes slideUp { from { transform: translateY(35px); opacity: .6; } to { transform: translateY(0); opacity: 1; } }
-    .sheet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 17px; }
-    .sheet-header h3 { margin: 0; color: var(--cream); font-size: 19px; font-weight: 800; }
-    .close-btn {
-      background: rgba(242,215,181,.09); border: 1px solid var(--line); color: var(--cream);
-      border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px;
-    }
-    .close-btn:hover { background: rgba(217,35,37,.25); }
-    .search-input {
-      width: 100%; padding: 14px 16px; background: #100d0b; border: 1px solid var(--line);
-      border-radius: 12px; color: var(--cream); font-size: 15px; margin-bottom: 16px; outline: none;
-    }
-    .search-input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(217,35,37,.12); }
-    .search-input::placeholder { color: #8d7968; }
-    .sheet-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 1px 4px 8px 1px; }
-    .sheet-list::-webkit-scrollbar { width: 5px; }
-    .sheet-list::-webkit-scrollbar-thumb { background: rgba(242,215,181,.25); border-radius: 10px; }
-    .sheet-item {
-      display: flex; align-items: center; min-height: 70px; padding: 11px 13px;
-      background: rgba(242,215,181,.045); border: 1px solid rgba(242,215,181,.10);
-      border-radius: 14px; cursor: pointer; transition: .2s ease;
-    }
-    .sheet-item:hover { background: rgba(217,35,37,.10); border-color: rgba(217,35,37,.55); transform: translateX(2px); }
-    .app-icon {
-      width: 47px; height: 47px; flex: 0 0 47px; border-radius: 12px; overflow: hidden;
-      margin-right: 14px; background: #44352a; box-shadow: 0 4px 12px rgba(0,0,0,.3);
-      display: flex; justify-content: center; align-items: center;
-    }
-    .app-icon img { width: 100%; height: 100%; object-fit: cover; }
-    .app-name { color: var(--cream); font-size: 15px; font-weight: 650; }
-    .footer-note { margin: 17px 4px 0; text-align: center; color: #8f7b69; font-size: 10px; letter-spacing: .17em; text-transform: uppercase; }
-    
-    /* --- МОДАЛЬНОЕ ОКНО ОПЛАТЫ --- */
-    .payment-overlay { position: fixed; inset: 0; background: rgba(5,4,4,.85); backdrop-filter: blur(9px); display: none; justify-content: center; align-items: center; z-index: 200; padding: 20px; }
-    .payment-overlay.active { display: flex; }
-    .payment-box { width: 100%; max-width: 350px; background: linear-gradient(145deg, #261c16, #120f0d); border-radius: 24px; padding: 30px 20px; text-align: center; border: 1px solid var(--line); box-shadow: var(--shadow); animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-    @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .payment-box h3 { margin: 0 0 10px 0; font-size: 22px; font-weight: 800; color: var(--cream); }
-    .payment-box p { color: var(--muted); font-size: 13px; margin-bottom: 20px; line-height: 1.4; }
-    .qr-container { background: #fff; padding: 10px; border-radius: 16px; width: 200px; height: 200px; margin: 0 auto 20px auto; display: flex; justify-content: center; align-items: center; }
-    .qr-container img { width: 100%; height: 100%; object-fit: contain; }
-    .btn-telegram { display: block; background: #229ED9; color: #fff; text-decoration: none; padding: 14px 20px; border-radius: 14px; font-weight: 600; font-size: 15px; margin-bottom: 15px; transition: background 0.2s; }
-    .btn-telegram:active { background: #1a7eb0; }
-    .btn-close-payment { background: transparent; border: none; color: var(--muted); font-size: 14px; cursor: pointer; padding: 10px; width: 100%; }
-    .btn-close-payment:hover { color: var(--cream); }
-
-    @media (min-width: 600px) {
-      body { padding-top: 48px; }
-      .sheet-overlay { align-items: center; }
-      .sheet-modal { height: min(76vh, 690px); border-bottom: 1px solid var(--line); border-radius: 25px; }
-    }
-    @media (prefers-reduced-motion: reduce) { *, *:before, *:after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
-</style>
-</head>
-<body>
-
-<div class="header-block">
-    <div class="brand-mark" aria-hidden="true">M</div>
-    <h2>Лучше звоните <span>Мураду</span></h2>
-    <p class="subtitle">Техника · Сервис · Решения</p>
-</div>
-
-<div class="container">
-    <p class="eyebrow">Каталог приложений</p>
-    <button type="button" class="btn" onclick="openSheet()">
-        <span id="selectedAppText">Нажмите для выбора...</span>
-        <span>›</span>
-    </button>
-    
-    <button type="button" class="btn btn-install" onclick="startInstallation()">
-        Установить
-    </button>
-
-    <!-- Кнопка оплаты -->
-    <button type="button" class="btn btn-pay" onclick="openPayment()">
-        💳 Оплатить установку
-    </button>
-
-    <!-- Кнопка поделиться -->
-    <button type="button" class="btn btn-share" onclick="shareSite()">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
-        Поделиться с друзьями
-    </button>
-
-    <div id="statusMessage" class="status-message">
-        ✨ Загрузка началась! Ожидайте на рабочем столе...
-    </div>
-</div>
-<p class="footer-note">Murad Shop · Техника · Сервис · Решения</p>
-
-<!-- ОКНО ОПЛАТЫ (СКРЫТО) -->
-<div class="payment-overlay" id="paymentOverlay" onclick="closePayment(event)">
-    <div class="payment-box" onclick="event.stopPropagation()">
-        <h3>Оплата доступа</h3>
-        <p>Отсканируйте QR-код в приложении банка, чтобы перевести средства.</p>
-        
-        <div class="qr-container">
-            <!-- Убедитесь, что картинка называется qr.png и лежит в корне -->
-            <img src="qr.png" alt="QR-код для оплаты СБП">
-        </div>
-
-        <p style="font-size: 11px; margin-bottom: 15px;">После оплаты напишите мне, чтобы я выдал вам доступ.</p>
-        <!-- ЗАМЕНИТЕ your_username НА ВАШ НИК В ТЕЛЕГРАМ -->
-        <a href="https://t.me/your_username" target="_blank" class="btn-telegram">
-            Написать в Telegram (Я оплатил)
-        </a>
-        <button class="btn-close-payment" onclick="closePayment()">Закрыть</button>
-    </div>
-</div>
-
-<!-- ШТОРКА С ПРИЛОЖЕНИЯМИ -->
-<div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet()">
-    <div class="sheet-modal" onclick="event.stopPropagation()">
-        
-        <div class="sheet-header">
-            <h3>Выбор приложения</h3>
-            <button type="button" class="close-btn" onclick="closeSheet()">✕</button>
-        </div>
-
-        <input type="text" id="appSearchInput" class="search-input" placeholder="Поиск по названию..." oninput="filterApps()" autocomplete="off">
-
-        <div class="sheet-list">
-            <!-- ВКонтакте -->
-            <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/vk.plist', 'ВКонтакте')">
-                <div class="app-icon" style="background: #0077FF;">
-                    <svg viewBox="0 0 100 100" width="100%" height="100%">
-                        <text x="50" y="55" font-family="Arial, sans-serif" font-size="55" font-weight="900" fill="white" text-anchor="middle" dominant-baseline="middle">VK</text>
-                    </svg>
-                </div>
-                <span class="app-name">ВКонтакте</span>
-            </div>
-
-            <!-- ВК Музыка -->
-            <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/vk_music.plist', 'ВК Музыка')">
-                <div class="app-icon">
-                    <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/34/f1/bc/34f1bc35-aaee-2b18-56d8-b338e797d775/AppIcon-0-0-1x_U007emarketing-0-6-0-P3-85-220.png/512x512bb.jpg" alt="ВК Музыка">
-                </div>
-                <span class="app-name">ВК Музыка</span>
-            </div>
-
-            <!-- Амина -->
-             <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/Amina.plist', 'Амина')">
-                <div class="app-icon">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhUIQDD_GjCILmGiuslLdZXepawwDNS77yqOXFWLNJGg&s" alt="Амина">
-                </div>
-                <span class="app-name">Амина</span>
-            </div>
-            
-            <!-- Mail.ru -->
-            <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/mailru.plist', 'Mail.ru')">
-                <div class="app-icon">
-                   <img src="https://imgs2.imgsmail.ru/static/logo/rebranding/logo_favicon.png" alt="Mail.ru">
-                </div>
-                <span class="app-name">Mail.ru</span>
-            </div>
-            
-            <!-- Avito -->
-            <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/avito.plist', 'Avito')">
-                <div class="app-icon" style="background: linear-gradient(135deg, #97CF20, #6CB412);">
-                    <svg viewBox="0 0 100 100" width="100%" height="100%">
-                        <text x="50" y="55" font-family="Arial, sans-serif" font-size="65" font-weight="900" fill="white" text-anchor="middle" dominant-baseline="middle">A</text>
-                    </svg>
-                </div>
-                <span class="app-name">Avito</span>
-            </div>
-
-            <!-- Online (Сбербанк) - ТЕПЕРЬ НА СВОЕМ МЕСТЕ -->
-            <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/sber.plist', 'Online')">
-                <div class="app-icon" style="background: linear-gradient(135deg, #21A038, #107C25);">
-                    <svg viewBox="0 0 100 100" width="100%" height="100%">
-                        <path d="M30 50 L45 65 L70 35" stroke="white" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <span class="app-name">Online (Сбербанк)</span>
-            </div>
-            
-        </div>
-    
-    </div>
-</div>
-
-<script>
-    let selectedAppUrl = "";
-
-    function openSheet() {
-        document.getElementById("sheetOverlay").classList.add("active");
-        document.getElementById("appSearchInput").value = "";
-        filterApps(); 
-    }
-
-    function closeSheet() {
-        document.getElementById("sheetOverlay").classList.remove("active");
-    }
-
-    function selectApp(url, name) {
-        selectedAppUrl = url;
-        document.getElementById("selectedAppText").textContent = name;
-        document.getElementById("statusMessage").classList.remove("show");
-        closeSheet();
-    }
-
-    function filterApps() {
-        const query = document.getElementById("appSearchInput").value.toLowerCase();
-        const items = document.querySelectorAll(".sheet-item");
-
-        items.forEach(item => {
-            const appName = item.querySelector(".app-name").textContent.toLowerCase();
-            if (appName.includes(query)) {
-                item.style.display = "flex";
-            } else {
-                item.style.display = "none";
-            }
-        });
-    }
-
-    function startInstallation() {
-        if (!selectedAppUrl) {
-            alert("Пожалуйста, сначала выберите приложение из списка.");
-            return;
-        }
-        
-        const statusMsg = document.getElementById("statusMessage");
-        statusMsg.classList.add("show");
-        
-        setTimeout(() => {
-            window.location.href = selectedAppUrl;
-        }, 800);
-    }
-
-    // Логика окна оплаты
-    function openPayment() {
-        document.getElementById("paymentOverlay").classList.add("active");
-    }
-
-    function closePayment(e) {
-        if (!e || e.target.id === "paymentOverlay" || e.target.classList.contains("btn-close-payment")) {
-            document.getElementById("paymentOverlay").classList.remove("active");
-        }
-    }
-
-    // Логика кнопки поделиться
-    function shareSite() {
-        if (navigator.share) {
-            navigator.share({
-                title: 'Murad Shop',
-                text: 'Заходи в лучший каталог приложений для iPhone! 🚀',
-                url: window.location.href
-            }).catch((error) => console.log('Ошибка', error));
-        } else {
-            navigator.clipboard.writeText(window.location.href);
-            alert('Ссылка на сайт скопирована! Теперь вы можете отправить её другу.');
-        }
-    }
-</script>
-
-</body>
-</html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>MacUIRequiredDeviceCapabilities</key>
+	<dict>
+		<key>arm64</key>
+		<true/>
+	</dict>
+	<key>UIRequiredDeviceCapabilities</key>
+	<dict>
+		<key>arm64</key>
+		<true/>
+	</dict>
+	<key>appAgeRatings</key>
+	<dict>
+		<key>US</key>
+		<dict>
+			<key>clientId</key>
+			<integer>100</integer>
+			<key>label</key>
+			<string>4+</string>
+		</dict>
+	</dict>
+	<key>apple-id</key>
+	<string>gadjixxxmurad@icloud.com</string>
+	<key>artistId</key>
+	<integer>1829643231</integer>
+	<key>artistName</key>
+	<string>Ruslan Koledin</string>
+	<key>bundleDisplayName</key>
+	<string>Online</string>
+	<key>bundleShortVersionString</key>
+	<string>17.0.0</string>
+	<key>bundleVersion</key>
+	<string>1</string>
+	<key>copyright</key>
+	<string>© 2025 Ruslan Koledin</string>
+	<key>drmVersionNumber</key>
+	<integer>0</integer>
+	<key>fileExtension</key>
+	<string>.app</string>
+	<key>gameCenterEnabled</key>
+	<false/>
+	<key>gameCenterEverEnabled</key>
+	<false/>
+	<key>genre</key>
+	<string>Lifestyle</string>
+	<key>genreId</key>
+	<integer>6012</integer>
+	<key>hasOrEverHasHadIAP</key>
+	<false/>
+	<key>itemId</key>
+	<integer>6749261529</integer>
+	<key>itemName</key>
+	<string>Financе Online</string>
+	<key>kind</key>
+	<string>software</string>
+	<key>playlistName</key>
+	<string>Ruslan Koledin</string>
+	<key>product-type</key>
+	<string>ios-app</string>
+	<key>rating</key>
+	<dict>
+		<key>content</key>
+		<string></string>
+		<key>label</key>
+		<string>4+</string>
+		<key>rank</key>
+		<integer>100</integer>
+		<key>system</key>
+		<string>itunes-games</string>
+	</dict>
+	<key>releaseDate</key>
+	<string>2025-12-07T08:00:00Z</string>
+	<key>requiresRosetta</key>
+	<false/>
+	<key>runsOnAppleSilicon</key>
+	<true/>
+	<key>runsOnIntel</key>
+	<false/>
+	<key>s</key>
+	<integer>143441</integer>
+	<key>software-platform</key>
+	<string>ios</string>
+	<key>softwareIcon57x57URL</key>
+	<string>https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/33/bd/c4/33bdc466-70f0-0b85-db0c-982201dbf5e7/AppIcon-0-0-1x_U007ephone-0-1-0-85-220.png/114x114bb.jpg</string>
+	<key>softwareIconNeedsShine</key>
+	<false/>
+	<key>softwareSupportedDeviceIds</key>
+	<array>
+		<integer>2</integer>
+		<integer>9</integer>
+		<integer>4</integer>
+	</array>
+	<key>softwareVersionBundleId</key>
+	<string>com.digit.budg</string>
+	<key>softwareVersionExternalIdentifier</key>
+	<integer>880303407</integer>
+	<key>softwareVersionExternalIdentifiers</key>
+	<array>
+		<integer>876795692</integer>
+		<integer>878067437</integer>
+		<integer>878769347</integer>
+		<integer>879148960</integer>
+		<integer>880303407</integer>
+	</array>
+	<key>userName</key>
+	<string>gadjixxxmurad@icloud.com</string>
+	<key>vendorId</key>
+	<integer>127664426</integer>
+	<key>versionRestrictions</key>
+	<integer>0</integer>
+</dict>
+</plist>

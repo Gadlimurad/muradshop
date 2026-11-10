@@ -71,14 +71,12 @@
     }
     .btn-install:hover { background: linear-gradient(115deg, #c31e23, #f03b3d 58%, #c31e23); box-shadow: 0 10px 28px rgba(217,35,37,.32); }
 
-    /* Кнопка оплаты */
     .btn-pay {
         justify-content: center; gap: 10px; margin-top: 12px; font-weight: 800;
         background: #2d221b; border: 1px solid rgba(242,215,181,.3);
     }
     .btn-pay:hover { border-color: var(--cream); background: #3a2b21; }
 
-    /* Кнопка поделиться */
     .btn-share {
         justify-content: center; gap: 10px; margin-top: 12px; margin-bottom: 0;
         border: 1px dashed rgba(242,215,181,.3); background: transparent;
@@ -139,7 +137,6 @@
     .app-name { color: var(--cream); font-size: 15px; font-weight: 650; }
     .footer-note { margin: 17px 4px 0; text-align: center; color: #8f7b69; font-size: 10px; letter-spacing: .17em; text-transform: uppercase; }
     
-    /* --- МОДАЛЬНОЕ ОКНО ОПЛАТЫ --- */
     .payment-overlay { position: fixed; inset: 0; background: rgba(5,4,4,.85); backdrop-filter: blur(9px); display: none; justify-content: center; align-items: center; z-index: 200; padding: 20px; }
     .payment-overlay.active { display: flex; }
     .payment-box { width: 100%; max-width: 350px; background: linear-gradient(145deg, #261c16, #120f0d); border-radius: 24px; padding: 30px 20px; text-align: center; border: 1px solid var(--line); box-shadow: var(--shadow); animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -182,12 +179,10 @@
         Установить
     </button>
 
-    <!-- Кнопка оплаты -->
     <button type="button" class="btn btn-pay" onclick="openPayment()">
         💳 Оплатить установку
     </button>
 
-    <!-- Кнопка поделиться -->
     <button type="button" class="btn btn-share" onclick="shareSite()">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
         Поделиться с друзьями
@@ -199,7 +194,7 @@
 </div>
 <p class="footer-note">Murad Shop · Техника · Сервис · Решения</p>
 
-<!-- ОКНО ОПЛАТЫ (СКРЫТО) -->
+<!-- ОКНО ОПЛАТЫ -->
 <div class="payment-overlay" id="paymentOverlay" onclick="closePayment(event)">
     <div class="payment-box" onclick="event.stopPropagation()">
         <h3>Оплата доступа</h3>
@@ -210,8 +205,6 @@
         </div>
 
         <p style="font-size: 11px; margin-bottom: 15px;">После оплаты напишите мне, чтобы я выдал вам доступ.</p>
-        
-        <!-- ЗАМЕНИТЕ your_username НА ВАШ НИК В ТЕЛЕГРАМ -->
         <a href="https://t.me/your_username" target="_blank" class="btn-telegram">
             Написать в Telegram (Я оплатил)
         </a>
@@ -257,37 +250,40 @@
                 <span class="app-name">Амина</span>
             </div>
             
-            <!-- Mail.ru -->
+            <!-- Mail.ru (Оригинальная иконка из App Store) -->
             <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/mailru.plist', 'Mail.ru')">
                 <div class="app-icon">
-                   <img src="https://imgs2.imgsmail.ru/static/logo/rebranding/logo_favicon.png" alt="Mail.ru">
+                    <!-- Официальная ссылка на логотип из App Store (из вашего файла plist) -->
+                    <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/49/cf/4a/49cf4a25-5f23-6b42-210f-b3736ed3143e/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg" alt="Mail.ru">
                 </div>
                 <span class="app-name">Mail.ru</span>
             </div>
             
-            <!-- Avito -->
+            <!-- Avito (Новый логотип с 4 кругами) -->
             <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/avito.plist', 'Avito')">
-                <div class="app-icon" style="background: linear-gradient(135deg, #97CF20, #6CB412);">
+                <div class="app-icon" style="background: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
                     <svg viewBox="0 0 100 100" width="100%" height="100%">
-                        <text x="50" y="55" font-family="Arial, sans-serif" font-size="65" font-weight="900" fill="white" text-anchor="middle" dominant-baseline="middle">A</text>
+                        <rect width="100" height="100" fill="white"/>
+                        <circle cx="33" cy="33" r="21" fill="#00A3FF" />
+                        <circle cx="74" cy="31" r="16" fill="#FF5C5C" />
+                        <circle cx="29" cy="75" r="13" fill="#9C6BFF" />
+                        <circle cx="65" cy="68" r="26" fill="#8DD847" />
                     </svg>
                 </div>
                 <span class="app-name">Avito</span>
             </div>
 
-            <!-- Online (Сбербанк) - Обновленная иконка -->
+            <!-- Online (Сбербанк) -->
             <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/sber.plist', 'Online')">
                 <div class="app-icon" style="background: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
                     <svg viewBox="0 0 100 100" width="100%" height="100%">
                         <defs>
-                            <!-- Градиент для кольца -->
                             <linearGradient id="sberRingGrad" x1="10%" y1="90%" x2="90%" y2="10%">
                                 <stop offset="0%" stop-color="#b4ec51" />
                                 <stop offset="50%" stop-color="#22c55e" />
                                 <stop offset="100%" stop-color="#0d9488" />
                             </linearGradient>
                         </defs>
-                        <!-- Толстое кольцо -->
                         <circle cx="50" cy="50" r="29" stroke="url(#sberRingGrad)" stroke-width="17" fill="none" />
                     </svg>
                 </div>
@@ -347,7 +343,6 @@
         }, 800);
     }
 
-    // Логика окна оплаты
     function openPayment() {
         document.getElementById("paymentOverlay").classList.add("active");
     }
@@ -358,7 +353,6 @@
         }
     }
 
-    // Логика кнопки поделиться
     function shareSite() {
         if (navigator.share) {
             navigator.share({

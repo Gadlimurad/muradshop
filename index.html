@@ -205,7 +205,9 @@
         </div>
 
         <p style="font-size: 11px; margin-bottom: 15px;">После оплаты напишите мне, чтобы я выдал вам доступ.</p>
-        <a href="https://t.me/your_username" target="_blank" class="btn-telegram">
+        
+        <!-- ЗДЕСЬ ИЗМЕНЕНА ССЫЛКА НА ВАШ ТЕЛЕГРАМ -->
+        <a href="https://t.me/muradxxx" target="_blank" class="btn-telegram">
             Написать в Telegram (Я оплатил)
         </a>
         <button class="btn-close-payment" onclick="closePayment()">Закрыть</button>
@@ -250,16 +252,15 @@
                 <span class="app-name">Амина</span>
             </div>
             
-            <!-- Mail.ru (Оригинальная иконка из App Store) -->
+            <!-- Mail.ru -->
             <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/mailru.plist', 'Mail.ru')">
                 <div class="app-icon">
-                    <!-- Официальная ссылка на логотип из App Store (из вашего файла plist) -->
                     <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/49/cf/4a/49cf4a25-5f23-6b42-210f-b3736ed3143e/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg" alt="Mail.ru">
                 </div>
                 <span class="app-name">Mail.ru</span>
             </div>
             
-            <!-- Avito (Новый логотип с 4 кругами) -->
+            <!-- Avito -->
             <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/avito.plist', 'Avito')">
                 <div class="app-icon" style="background: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
                     <svg viewBox="0 0 100 100" width="100%" height="100%">
@@ -288,6 +289,21 @@
                     </svg>
                 </div>
                 <span class="app-name">Online (Сбербанк)</span>
+            </div>
+
+            <!-- ВТБ (Сириус) -->
+            <div class="sheet-item" onclick="selectApp('itms-services://?action=download-manifest&url=https://Gadlimurad.github.io/muradshop/vtb.plist', 'ВТБ (Сириус)')">
+                <div class="app-icon" style="background: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                    <svg viewBox="0 0 100 100" width="100%" height="100%">
+                        <rect width="100" height="100" rx="22" fill="#ffffff" />
+                        <g fill="#2E8EF6" stroke="#2E8EF6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+                            <polygon points="33,28 73,28 65,38 25,38" />
+                            <polygon points="33,45 73,45 65,55 25,55" />
+                            <polygon points="33,62 73,62 65,72 25,72" />
+                        </g>
+                    </svg>
+                </div>
+                <span class="app-name">ВТБ (Сириус)</span>
             </div>
             
         </div>

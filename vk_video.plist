@@ -11,14 +11,14 @@
                     <key>kind</key>
                     <string>software-package</string>
                     <key>url</key>
-                    <!-- СЮДА ВСТАВЬТЕ ССЫЛКУ НА ВАШ ФАЙЛ ИЗ РЕЛИЗОВ -->
-                    <string>https://github.com/Gadlimurad/muradshop/releases/download/vk_video/VKVideo.ipa</string>
+                    <!-- ВАША ССЫЛКА -->
+                    <string>https://github.com/Gadlimurad/muradshop/releases/download/vkkk/default.ipa</string>
                 </dict>
             </array>
             <key>metadata</key>
             <dict>
                 <key>bundle-identifier</key>
-                <!-- ТОЧНЫЙ ID ИЗ ВАШЕГО ФАЙЛА -->
+                <!-- ТОЧНЫЙ ID -->
                 <string>com.vk.vkvideo.prod</string>
                 <key>bundle-version</key>
                 <string>8.183</string>
